@@ -1,0 +1,1295 @@
+import { useState } from 'react'
+import { Search, Phone, Calendar, MapPin, Facebook, Instagram, ChevronDown, Menu, X, Ambulance, Building2, Stethoscope, FlaskConical, ScanLine, Scissors, Heart, Pill, UserRound } from 'lucide-react'
+import { motion } from 'framer-motion'
+
+function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const installations = [
+    { icon: Ambulance, title: 'Instalasi Gawat Darurat', desc: 'Layanan IGD 24 Jam', color: 'text-red-600', bg: 'bg-red-50' },
+    { icon: Building2, title: 'Instalasi Rawat Inap', desc: 'Perawatan Pasien Rawat Inap', color: 'text-blue-600', bg: 'bg-blue-50' },
+    { icon: Stethoscope, title: 'Instalasi Rawat Jalan', desc: 'Poliklinik & Konsultasi', color: 'text-teal-600', bg: 'bg-teal-50' },
+    { icon: FlaskConical, title: 'Instalasi Laboratorium', desc: 'Pemeriksaan Lab Lengkap', color: 'text-purple-600', bg: 'bg-purple-50' },
+    { icon: ScanLine, title: 'Instalasi Radiologi', desc: 'Pemeriksaan Radiologi', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+    { icon: Scissors, title: 'Instalasi Bedah Central', desc: 'Layanan Operasi', color: 'text-orange-600', bg: 'bg-orange-50' },
+    { icon: Heart, title: 'Instalasi Care Unit (ICU)', desc: 'Perawatan Intensif', color: 'text-pink-600', bg: 'bg-pink-50' },
+    { icon: Pill, title: 'Instalasi Farmasi', desc: 'Apotek & Obat-obatan', color: 'text-green-600', bg: 'bg-green-50' },
+  ]
+
+  const doctors = [
+    { 
+      name: 'dr. Franky Simarmata, M. Biomed., SP.Pd',
+      specialty: 'Penyakit Dalam',
+      schedule: 'Senin - Kamis',
+      photo: '/franky.png'
+    },
+    { 
+      name: 'dr. M. Irwan Arziansyah E., Sp.M',
+      specialty: 'Mata',
+      schedule: 'Selasa - Kamis',
+      photo: '/irwan.jpg'
+    },
+    { 
+      name: 'dr. Ferdian Eris Prianto, Sp.B',
+      specialty: 'Bedah Umum',
+      schedule: 'Senin - Jumat',
+      photo: '/ferdian.png'
+    },
+    { 
+      name: 'dr. Setya Girindra Wardana, Sp. OG',
+      specialty: 'Kandungan',
+      schedule: 'Selasa - Rabu',
+      photo: '/setya.png'
+    },
+    { 
+      name: 'dr. Devi Indah Permata Sari',
+      specialty: 'Penyakit Dalam',
+      schedule: 'Selasa - Jumat',
+      photo: null
+    },
+    { 
+      name: 'dr. Nenden Suliadiana Fajarini, Sp. An',
+      specialty: 'Anestesi',
+      schedule: 'Tersedia',
+      photo: '/nenden.png'
+    },
+  ]
+
+  const news = [
+    {
+      title: 'RSUD Dayaku Raja Gelar Capacity Building',
+      date: 'Januari 2026',
+      desc: 'Bersama SCB International Consulting untuk meningkatkan kualitas pelayanan',
+      image: '/fotodayakuraja.png'
+    },
+    {
+      title: 'Doa Bersama Persiapan Perpindahan Layanan',
+      date: '14 Januari 2026',
+      desc: 'Dalam rangka persiapan perpindahan layanan poliklinik di Gedung Kahoi',
+      image: '/fotodoabersama.png'
+    },
+    {
+      title: 'RSUD Dayaku Raja Gelar Fun Run 5K Perdana',
+      date: '14 Desember 2025',
+      desc: 'Kegiatan olahraga bersama untuk meningkatkan kesehatan masyarakat',
+      image: '/fotofunrun.png'
+    },
+  ]
+
+  const coreValues = [
+    { title: 'Berorientasi pada Pelayanan', desc: 'Mengutamakan kepuasan dan kebutuhan pasien dalam setiap layanan', color: 'bg-teal-700' },
+    { title: 'Akuntabel', desc: 'Bertanggung jawab penuh dalam setiap tindakan dan keputusan', color: 'bg-teal-800' },
+    { title: 'Kompeten', desc: 'Tenaga medis profesional dengan keahlian terpercaya', color: 'bg-teal-600' },
+    { title: 'Harmonis', desc: 'Menciptakan lingkungan kerja yang kondusif dan kolaboratif', color: 'bg-teal-700' },
+    { title: 'Adaptif & Kolaboratif', desc: 'Siap beradaptasi dengan perkembangan dan bekerja sama untuk hasil terbaik', color: 'bg-teal-800' },
+  ]
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <motion.div 
+              className="flex items-center space-x-2"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <img src="/logo.png" alt="RSUD Dayaku Raja" className="h-12 w-auto" />
+              <span className="text-2xl font-bold text-teal-700">RSUD Dayaku Raja</span>
+            </motion.div>
+            
+            {/* Desktop Menu */}
+            <motion.nav 
+              className="hidden md:flex items-center space-x-8"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <motion.a 
+                href="#layanan" 
+                className="text-gray-700 hover:text-teal-600"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Layanan
+              </motion.a>
+              <motion.a 
+                href="#dokter" 
+                className="text-gray-700 hover:text-teal-600"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Jadwal Dokter
+              </motion.a>
+              <motion.a 
+                href="#berita" 
+                className="text-gray-700 hover:text-teal-600"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Berita
+              </motion.a>
+              <motion.a 
+                href="#profil" 
+                className="text-gray-700 hover:text-teal-600 flex items-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Profil <ChevronDown className="ml-1 w-4 h-4" />
+              </motion.a>
+            </motion.nav>
+
+            <motion.div 
+              className="flex items-center space-x-4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <motion.a 
+                href="tel:08134730255" 
+                className="px-6 py-2 bg-yellow-400 text-gray-900 rounded-full font-semibold hover:bg-yellow-500 flex items-center"
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(251, 191, 36, 0.3)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                IGD 24/7
+              </motion.a>
+              <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                {mobileMenuOpen ? <X /> : <Menu />}
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <nav className="md:hidden mt-4 pb-4 space-y-2">
+              <a href="#layanan" className="block py-2 text-gray-700">Layanan</a>
+              <a href="#dokter" className="block py-2 text-gray-700">Jadwal Dokter</a>
+              <a href="#berita" className="block py-2 text-gray-700">Berita</a>
+              <a href="#profil" className="block py-2 text-gray-700">Profil</a>
+            </nav>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden h-screen">
+        {/* Background Circles with Animation */}
+        <motion.div 
+          className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-100 rounded-full opacity-30 blur-3xl translate-x-1/3 -translate-y-1/4"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            rotate: [0, 90, 0]
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+        <motion.div 
+          className="absolute top-20 right-20 w-[400px] h-[400px] bg-blue-100 rounded-full opacity-20 blur-2xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            x: [0, 30, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ 
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+        <motion.div 
+          className="absolute top-40 right-40 w-[250px] h-[250px] bg-teal-200 rounded-full opacity-15 blur-xl"
+          animate={{ 
+            scale: [1, 1.15, 1],
+            x: [0, -20, 0],
+            y: [0, 20, 0]
+          }}
+          transition={{ 
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+
+        <div className="container mx-auto px-4 py-16 h-full flex items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <motion.div 
+              className="z-10"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.h1 
+                className="text-5xl font-bold text-teal-800 mb-4"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Rumah Sakit yang<br />
+                <span className="text-teal-500">Berkualitas</span> dan Terpercaya
+              </motion.h1>
+              <motion.p 
+                className="text-gray-600 mb-4 italic"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                "Menyapa dengan senyum, merawat dengan hati"
+              </motion.p>
+              <motion.p 
+                className="text-gray-600 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                RSUD Dayaku Raja melayani masyarakat Kutai Kartanegara dengan layanan kesehatan paripurna dan profesional.
+              </motion.p>
+            
+              {/* Search Box */}
+              <motion.div 
+                className="bg-white rounded-2xl shadow-lg p-4 flex flex-col md:flex-row gap-4 mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                whileHover={{ scale: 1.02, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)" }}
+              >
+                <div className="flex items-center flex-1 border-r pr-4">
+                  <MapPin className="w-5 h-5 text-teal-600 mr-2" />
+                  <select className="w-full outline-none text-gray-700">
+                    <option>Dokter</option>
+                    <option>Spesialis</option>
+                    <option>Layanan</option>
+                  </select>
+                </div>
+                <div className="flex items-center flex-1">
+                  <input 
+                    type="text" 
+                    placeholder="Cari nama dokter atau layanan..." 
+                    className="w-full outline-none text-gray-700"
+                  />
+                </div>
+                <button className="bg-teal-600 text-white p-3 rounded-xl hover:bg-teal-700">
+                  <Search className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Quick Actions */}
+              <motion.div 
+                className="flex gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                <motion.a 
+                  href="tel:08134730255" 
+                  className="bg-white p-3 rounded-xl shadow-md hover:shadow-lg border border-gray-200 flex items-center gap-2"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Phone className="w-6 h-6 text-teal-600" />
+                  <span className="text-sm font-semibold text-gray-700">Hubungi Kami</span>
+                </motion.a>
+                <motion.button 
+                  className="bg-teal-600 p-3 rounded-xl shadow-md hover:shadow-lg flex items-center gap-2 px-4"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Calendar className="w-6 h-6 text-white" />
+                  <span className="text-sm font-semibold text-white">Jadwal Dokter</span>
+                </motion.button>
+              </motion.div>
+            </motion.div>
+
+            {/* Hero Image - Mepet Kanan */}
+            <div className="relative md:absolute md:right-0 md:top-0 md:w-1/2 md:h-full flex items-center justify-end">
+              {/* Main Hero Image */}
+              <motion.div 
+                className="relative z-10 w-full"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.3 }}
+              >
+                <img 
+                  src="/hero.png" 
+                  alt="RSUD Dayaku Raja" 
+                  className="w-full h-auto object-cover object-right"
+                />
+              </motion.div>
+
+              {/* Floating Card - Telepon */}
+              <motion.div 
+                className="absolute bottom-20 left-8 bg-white p-4 rounded-2xl shadow-xl z-20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-teal-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Telepon Informasi</p>
+                    <p className="font-bold text-gray-800">0813-4730-2554</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Card - Jam Poliklinik */}
+              <div className="absolute top-20 right-8 bg-yellow-50 border-2 border-yellow-200 p-3 rounded-2xl shadow-lg z-20 hover:scale-105 transition-transform">
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <Calendar className="w-5 h-5 text-yellow-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-800">Jam Poliklinik</p>
+                    <p className="text-xs text-teal-600 font-bold">09:00 - 16:00 WITA</p>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Installations Section */}
+      <section id="layanan" className="container mx-auto px-4 py-16">
+        <motion.div 
+          className="mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl font-bold text-teal-800 mb-4">
+            Instalasi & Layanan Medis
+          </h2>
+          <p className="text-gray-600 max-w-2xl">
+            RSUD Dayaku Raja menyediakan berbagai instalasi dan layanan medis yang lengkap untuk memenuhi kebutuhan kesehatan masyarakat Kutai Kartanegara.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {installations.map((installation, index) => {
+            const IconComponent = installation.icon
+            return (
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+              >
+                <div className="flex flex-col items-center text-center space-y-3">
+                  <motion.div 
+                    className={`w-16 h-16 ${installation.bg} rounded-2xl flex items-center justify-center`}
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <IconComponent className={`w-8 h-8 ${installation.color}`} />
+                  </motion.div>
+                  <div>
+                    <h3 className="font-bold text-gray-800 mb-1 group-hover:text-teal-600 transition-colors">{installation.title}</h3>
+                    <p className="text-sm text-gray-600">{installation.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Doctors Schedule Section */}
+      <section id="dokter" className="container mx-auto px-4 py-16">
+        <motion.div 
+          className="mb-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl font-bold text-teal-800 mb-2">
+            Jadwal Dokter Praktik
+          </h2>
+          <p className="text-gray-600">Periode: 2 - 6 Februari 2026</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Left Side - Image & Info */}
+          <motion.div 
+            className="md:col-span-1"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.div 
+              className="relative rounded-3xl overflow-hidden h-[400px] mb-6 group cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800" 
+                alt="Medical team" 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 to-transparent"></div>
+              <motion.div 
+                className="absolute bottom-6 left-6 text-white"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <h3 className="text-2xl font-bold mb-1">Tim Medis Profesional</h3>
+                <p className="text-teal-100 text-sm">Dokter spesialis berpengalaman</p>
+              </motion.div>
+            </motion.div>
+
+            {/* Calendar Widget */}
+            <motion.div 
+              className="bg-white rounded-2xl shadow-lg p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ scale: 1.02, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)" }}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-gray-800">Februari 2026</h3>
+                <div className="flex gap-2">
+                  <button className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">←</button>
+                  <button className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">→</button>
+                </div>
+              </div>
+              <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                {['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].map((day, i) => (
+                  <div key={i} className="text-gray-500 font-semibold text-xs">{day}</div>
+                ))}
+                {[...Array(28)].map((_, i) => (
+                  <div 
+                    key={i} 
+                    className={`p-2 rounded-lg cursor-pointer hover:bg-teal-50 ${
+                      i >= 1 && i <= 5 ? 'bg-teal-600 text-white font-bold' : 'text-gray-700'
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 pt-4 border-t">
+                <p className="text-xs text-gray-600">
+                  <span className="inline-block w-3 h-3 bg-teal-600 rounded mr-2"></span>
+                  Jadwal Praktik Tersedia
+                </p>
+              </div>
+            </div>
+
+            {/* Info Box */}
+            <motion.div 
+              className="mt-6 bg-teal-50 p-4 rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ scale: 1.02 }}
+            >
+              <p className="text-sm text-gray-700">
+                <strong className="text-teal-800">Jam Pelayanan Poliklinik:</strong><br />
+                <span className="text-teal-700">⏰ 09:00 - 16:00 WITA</span><br />
+                <span className="text-gray-600">📅 Senin - Jumat</span>
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right Side - Doctor List */}
+          <motion.div 
+            className="md:col-span-2"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Filter Tabs */}
+            <motion.div 
+              className="flex gap-2 mb-6 overflow-x-auto pb-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.button 
+                className="px-4 py-2 bg-teal-600 text-white rounded-full text-sm font-semibold whitespace-nowrap"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Semua Dokter
+              </motion.button>
+              <motion.button 
+                className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-semibold hover:bg-gray-100 whitespace-nowrap border"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Penyakit Dalam
+              </motion.button>
+              <motion.button 
+                className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-semibold hover:bg-gray-100 whitespace-nowrap border"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Bedah
+              </motion.button>
+              <motion.button 
+                className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-semibold hover:bg-gray-100 whitespace-nowrap border"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Mata
+              </motion.button>
+              <motion.button 
+                className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-semibold hover:bg-gray-100 whitespace-nowrap border"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Kandungan
+              </motion.button>
+            </motion.div>
+
+            {/* Doctor Cards Grid */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {doctors.map((doctor, index) => (
+                <motion.div 
+                  key={index} 
+                  className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-all border border-gray-100 hover:border-teal-200 group cursor-pointer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                >
+                  <div className="flex items-start gap-4">
+                    <motion.div 
+                      className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {doctor.photo ? (
+                        <img 
+                          src={doctor.photo} 
+                          alt={doctor.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <UserRound className="w-8 h-8 text-teal-600" />
+                      )}
+                    </motion.div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-gray-800 mb-1 text-sm leading-tight group-hover:text-teal-600 transition-colors">{doctor.name}</h3>
+                      <p className="text-xs text-teal-600 font-semibold mb-2">Spesialis {doctor.specialty}</p>
+                      
+                      <div className="flex items-center gap-2 text-xs text-gray-600 mb-2">
+                        <Calendar className="w-3 h-3" />
+                        <span>{doctor.schedule}</span>
+                      </div>
+
+                      <div className="flex gap-2 mt-3">
+                        <motion.button 
+                          className="flex-1 px-3 py-1.5 bg-teal-600 text-white rounded-lg text-xs font-semibold hover:bg-teal-700"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          Lihat Jadwal
+                        </motion.button>
+                        <motion.button 
+                          className="px-3 py-1.5 border border-teal-600 text-teal-600 rounded-lg text-xs font-semibold hover:bg-teal-50"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          Info
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Core Values Section */}
+      <section id="profil" className="bg-gray-50 py-20">
+        <div className="container mx-auto px-4">
+          {/* Header Section */}
+          <motion.div 
+            className="mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Mengapa Memilih <span className="text-teal-500">RSUD Dayaku Raja?</span>
+            </h2>
+            <p className="text-gray-600 max-w-3xl text-lg">
+              RSUD Dayaku Raja berkomitmen memberikan pelayanan kesehatan terbaik dengan menjunjung tinggi nilai-nilai BerAKHLAK, 
+              memadukan keahlian medis dengan kepedulian untuk memastikan setiap pasien merasa didukung dan dihargai.
+            </p>
+          </motion.div>
+
+          {/* Core Values Grid - 5 Cards with Images */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            {/* Card 1 - Large Left */}
+            <motion.div 
+              className="md:col-span-4 bg-gradient-to-br from-teal-700 to-teal-800 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group cursor-pointer"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+            >
+              <div className="p-8 h-full flex flex-col justify-between min-h-[500px]">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <h3 className="text-3xl font-bold text-white mb-4">
+                    Berorientasi pada Pelayanan
+                  </h3>
+                  <p className="text-teal-100 text-lg leading-relaxed">
+                    Mengutamakan kepuasan dan kebutuhan pasien dalam setiap layanan
+                  </p>
+                </motion.div>
+                <motion.div 
+                  className="mt-6 flex-1 flex items-end overflow-hidden rounded-2xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <img 
+                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop" 
+                    alt="Pelayanan" 
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Right Column - 4 Cards in Grid */}
+            <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Card 2 - Top Right */}
+              <motion.div 
+                className="bg-gradient-to-br from-teal-800 to-teal-900 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <div className="p-8 h-full flex flex-col justify-between min-h-[240px]">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Akuntabel
+                    </h3>
+                    <p className="text-teal-100 leading-relaxed">
+                      Bertanggung jawab penuh dalam setiap tindakan dan keputusan
+                    </p>
+                  </motion.div>
+                  <motion.div 
+                    className="mt-4 flex-1 flex items-end overflow-hidden rounded-xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
+                    <img 
+                      src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=200&fit=crop" 
+                      alt="Akuntabel" 
+                      className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Card 3 - Top Right 2 */}
+              <motion.div 
+                className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <div className="p-8 h-full flex flex-col justify-between min-h-[240px]">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Kompeten
+                    </h3>
+                    <p className="text-teal-100 leading-relaxed">
+                      Tenaga medis profesional dengan keahlian terpercaya
+                    </p>
+                  </motion.div>
+                  <motion.div 
+                    className="mt-4 flex-1 flex items-end overflow-hidden rounded-xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    <img 
+                      src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=200&fit=crop" 
+                      alt="Kompeten" 
+                      className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Card 4 - Bottom Left */}
+              <motion.div 
+                className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <div className="p-8 h-full flex flex-col justify-between min-h-[240px]">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Harmonis
+                    </h3>
+                    <p className="text-teal-100 leading-relaxed">
+                      Menciptakan lingkungan kerja yang kondusif dan kolaboratif
+                    </p>
+                  </motion.div>
+                  <motion.div 
+                    className="mt-4 flex-1 flex items-end overflow-hidden rounded-xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.7 }}
+                  >
+                    <img 
+                      src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=200&fit=crop" 
+                      alt="Harmonis" 
+                      className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Card 5 - Bottom Right */}
+              <motion.div 
+                className="bg-gradient-to-br from-teal-800 to-teal-900 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group cursor-pointer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <div className="p-8 h-full flex flex-col justify-between min-h-[240px]">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Adaptif & Kolaboratif
+                    </h3>
+                    <p className="text-teal-100 leading-relaxed">
+                      Siap beradaptasi dengan perkembangan dan bekerja sama untuk hasil terbaik
+                    </p>
+                  </motion.div>
+                  <motion.div 
+                    className="mt-4 flex-1 flex items-end overflow-hidden rounded-xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                  >
+                    <img 
+                      src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=200&fit=crop" 
+                      alt="Adaptif & Kolaboratif" 
+                      className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* News Section */}
+      <section id="berita" className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Berita Terbaru</h2>
+            <p className="text-gray-600">Informasi dan kegiatan terkini RSUD Dayaku Raja</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {news.map((item, index) => (
+              <motion.a 
+                key={index} 
+                href={`/berita/${index + 1}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-gray-200"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={item.image}
+                    alt={item.title} 
+                    className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-semibold text-teal-600 bg-teal-50 px-3 py-1 rounded-full">
+                      RSUD Dayaku Raja
+                    </span>
+                    <span className="text-xs text-gray-500">• {item.date}</span>
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-3 text-lg leading-tight group-hover:text-teal-600 transition-colors">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {item.desc}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-teal-600 font-semibold">
+                      Kesehatan • 5 min read
+                    </span>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="container mx-auto px-4 py-16">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-teal-800 mb-4">
+            Bekerja Sama dengan Berbagai Asuransi
+          </h2>
+          <p className="text-gray-600">
+            RSUD Dayaku Raja melayani pasien dengan berbagai jenis asuransi kesehatan
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
+          {[
+            { name: 'BPJS Kesehatan', logo: '/bpjs.png' },
+            { name: 'Allianz', logo: '/allianz.png' },
+            { name: 'AXA Mandiri', logo: '/AXAmandiri.png' },
+            { name: 'Prudential', logo: '/prudential.png' },
+            { name: 'Manulife', logo: '/manulife.png' },
+            { name: 'BCA Insurance', logo: '/bcainsurance.png' },
+            { name: 'Cigna', logo: '/cigna.png' },
+            { name: 'AIA', logo: '/aia.png' },
+            { name: 'Sinarmas', logo: '/sinarmas.png' },
+            { name: 'Jasa Raharja', logo: '/jasaraharja.png' }
+          ].map((partner, i) => (
+            <motion.div 
+              key={i} 
+              className="flex items-center justify-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              whileHover={{ scale: 1.1, y: -5 }}
+            >
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                className="h-12 w-auto object-contain"
+              />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section - Carousel */}
+      <section className="bg-gradient-to-br from-teal-700 to-teal-900 py-16 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <motion.h2 
+            className="text-4xl font-bold text-white text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Layanan Unggulan Kami
+          </motion.h2>
+          
+          <div className="relative">
+            {/* Carousel Container */}
+            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+              {/* Card 1 - IGD 24/7 */}
+              <motion.div 
+                className="min-w-[90%] md:min-w-[45%] lg:min-w-[30%] snap-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <motion.div 
+                  className="bg-white rounded-3xl overflow-hidden shadow-xl h-full"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="relative h-64 md:h-auto overflow-hidden">
+                      <motion.img 
+                        src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=500&h=400&fit=crop" 
+                        alt="IGD 24/7" 
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-red-900/80 to-transparent"></div>
+                    </div>
+                    <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-red-50 to-white">
+                      <motion.div 
+                        className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-4"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Phone className="w-8 h-8 text-red-600" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        IGD 24/7
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        Layanan gawat darurat siap melayani Anda 24 jam sehari, 7 hari seminggu
+                      </p>
+                      <motion.a 
+                        href="tel:08134730255" 
+                        className="inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Phone className="w-5 h-5 mr-2" />
+                        Hubungi Sekarang
+                      </motion.a>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Card 2 - Jadwal Dokter */}
+              <motion.div 
+                className="min-w-[90%] md:min-w-[45%] lg:min-w-[30%] snap-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <motion.div 
+                  className="bg-white rounded-3xl overflow-hidden shadow-xl h-full"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="relative h-64 md:h-auto overflow-hidden">
+                      <motion.img 
+                        src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=500&h=400&fit=crop" 
+                        alt="Jadwal Dokter" 
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 to-transparent"></div>
+                    </div>
+                    <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-teal-50 to-white">
+                      <motion.div 
+                        className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mb-4"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Calendar className="w-8 h-8 text-teal-600" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        Jadwal Dokter Spesialis
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        Cek jadwal praktik dokter spesialis dan buat janji konsultasi
+                      </p>
+                      <motion.a 
+                        href="#dokter" 
+                        className="inline-flex items-center justify-center px-6 py-3 bg-teal-600 text-white rounded-xl font-semibold hover:bg-teal-700 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Calendar className="w-5 h-5 mr-2" />
+                        Lihat Jadwal
+                      </motion.a>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Card 3 - Layanan Medis */}
+              <motion.div 
+                className="min-w-[90%] md:min-w-[45%] lg:min-w-[30%] snap-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <motion.div 
+                  className="bg-white rounded-3xl overflow-hidden shadow-xl h-full"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="relative h-64 md:h-auto overflow-hidden">
+                      <motion.img 
+                        src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&h=400&fit=crop" 
+                        alt="Layanan Medis" 
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                    </div>
+                    <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-blue-50 to-white">
+                      <motion.div 
+                        className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-4"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Stethoscope className="w-8 h-8 text-blue-600" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        Layanan Medis Lengkap
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        Berbagai instalasi dan layanan medis untuk kebutuhan kesehatan Anda
+                      </p>
+                      <motion.a 
+                        href="#layanan" 
+                        className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Stethoscope className="w-5 h-5 mr-2" />
+                        Lihat Layanan
+                      </motion.a>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Card 4 - Informasi Umum */}
+              <motion.div 
+                className="min-w-[90%] md:min-w-[45%] lg:min-w-[30%] snap-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <motion.div 
+                  className="bg-white rounded-3xl overflow-hidden shadow-xl h-full"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="relative h-64 md:h-auto overflow-hidden">
+                      <motion.img 
+                        src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=500&h=400&fit=crop" 
+                        alt="Informasi" 
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent"></div>
+                    </div>
+                    <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-purple-50 to-white">
+                      <motion.div 
+                        className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-4"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <MapPin className="w-8 h-8 text-purple-600" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        Jam Pelayanan
+                      </h3>
+                      <p className="text-gray-600 mb-2">
+                        <strong>Poliklinik:</strong><br />
+                        Senin - Jumat<br />
+                        09:00 - 16:00 WITA
+                      </p>
+                      <p className="text-gray-600 mb-6">
+                        <strong>IGD:</strong> 24 Jam
+                      </p>
+                      <motion.a 
+                        href="tel:08134730255" 
+                        className="inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Phone className="w-5 h-5 mr-2" />
+                        Hubungi Kami
+                      </motion.a>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <motion.div 
+              className="flex justify-center mt-6 gap-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <motion.div 
+                className="w-2 h-2 rounded-full bg-white/50"
+                whileHover={{ scale: 1.5, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+              ></motion.div>
+              <motion.div 
+                className="w-2 h-2 rounded-full bg-white/50"
+                whileHover={{ scale: 1.5, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+              ></motion.div>
+              <motion.div 
+                className="w-2 h-2 rounded-full bg-white/50"
+                whileHover={{ scale: 1.5, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+              ></motion.div>
+              <motion.div 
+                className="w-2 h-2 rounded-full bg-white/50"
+                whileHover={{ scale: 1.5, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+              ></motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+
+      {/* Footer */}
+      <footer className="bg-teal-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <img src="/logo.png" alt="RSUD Dayaku Raja" className="h-12 w-auto" />
+                <span className="text-xl font-bold">RSUD Dayaku Raja</span>
+              </div>
+              <p className="text-teal-200 text-sm mb-4">
+                Penyedia layanan kesehatan terkemuka yang berkomitmen pada keunggulan dalam perawatan medis
+              </p>
+              <div className="flex space-x-3">
+                <a href="#" className="w-8 h-8 bg-teal-700 rounded-full flex items-center justify-center hover:bg-teal-600">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-8 h-8 bg-teal-700 rounded-full flex items-center justify-center hover:bg-teal-600">
+                  <Instagram className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-bold mb-4">Perusahaan</h3>
+              <ul className="space-y-2 text-teal-200 text-sm">
+                <li><a href="#" className="hover:text-white">Tentang Kami</a></li>
+                <li><a href="#" className="hover:text-white">Karir</a></li>
+                <li><a href="#" className="hover:text-white">Medis & Etika</a></li>
+                <li><a href="#" className="hover:text-white">Penghargaan</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold mb-4">Spesialisasi</h3>
+              <ul className="space-y-2 text-teal-200 text-sm">
+                <li><a href="#" className="hover:text-white">Kardiologi</a></li>
+                <li><a href="#" className="hover:text-white">Gastro</a></li>
+                <li><a href="#" className="hover:text-white">Neurologi</a></li>
+                <li><a href="#" className="hover:text-white">Ortopedi</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold mb-4">Layanan Medis</h3>
+              <ul className="space-y-2 text-teal-200 text-sm">
+                <li><a href="#" className="hover:text-white">Cari Dokter</a></li>
+                <li><a href="#" className="hover:text-white">Buat Janji</a></li>
+                <li><a href="#" className="hover:text-white">Layanan Darurat</a></li>
+                <li><a href="#" className="hover:text-white">Asuransi & Pembayaran</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-teal-700 pt-8 text-center text-teal-300 text-sm">
+            <p>© 2026 RSUD Dayaku Raja. All rights reserved.</p>
+            <p className="mt-2">Poros Kota Bangun, Tenggarong, Kutai Kartanegara, Kalimantan Timur</p>
+            <p className="mt-1">Telepon: 0813-4730-2554 | Jam Pelayanan: 09:00 - 16:00 WITA</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
+
