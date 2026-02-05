@@ -39,7 +39,7 @@ const ChatBot = () => {
       console.log('📝 User message:', userMessage)
       
       const ai = new GoogleGenAI({
-        apiKey: 'AIzaSyCX9OO5NK7UQNeLPmAz0czcwErpg4GO35U'
+        apiKey: 'AIzaSyCvWZpBHxq6c5WANfmVvoXXSgQTyO97m9E'
       })
       console.log('✅ GoogleGenAI instance created')
 
